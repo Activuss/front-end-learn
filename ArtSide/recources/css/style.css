@@ -1,0 +1,231 @@
+/* Eric Meyer's CSS Reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* End of Eric Meyer's CSS Reset */
+
+html {
+	height: 100%;
+}
+article, aside, details, figcaption, figure, footer, header, main, nav, section, summary {
+	display: block;
+}
+body {
+	font: 11pt/18pt Arial, sans-serif;
+	width: 100%;
+	height: 100%;
+    background-image: url("../images/bg-body2.jpg");
+
+}
+
+strong {
+    font-weight: bold;
+}
+
+.wrapper {
+	width: 1000px;
+	margin: 0 auto;
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+}
+
+
+/* Header
+-----------------------------------------------------------------------------*/
+.header {
+	height: 200px;
+	/*background: #FFE680;*/
+}
+
+
+/* Middle
+-----------------------------------------------------------------------------*/
+.middle {
+	width: 100%;
+	padding: 0 0 108px;
+	position: relative;
+}
+.middle:after {
+	display: table;
+	clear: both;
+	content: '';
+}
+.container {
+	width: 100%;
+	float: left;
+	overflow: hidden;
+
+}
+.content {
+	padding: 0 0 0 270px;
+}
+
+
+/* Left Sidebar
+-----------------------------------------------------------------------------*/
+.left-sidebar {
+	float: left;
+	width: 255px;
+	margin-left: -100%;
+	position: relative;
+	/*background: #B5E3FF;*/
+}
+
+
+/* Footer
+-----------------------------------------------------------------------------*/
+.footer {
+	width: 1000px;
+	margin: -108px auto 0;
+	height: 108px;
+	/*background: #BFF08E;*/
+	position: relative;
+    border: 1px gray;
+    border-top-style: solid;
+    padding-top: 40px;
+    color: gray;
+}
+
+.division {
+    display: inline-block;
+    vertical-align: top;
+    white-space: nowrap;
+    /*text-align: left;*/
+}
+
+.h2, .h2-left, .h2-center, .h2-right  {
+    color: dimgrey;
+    margin-bottom: 16px;
+    font-weight: bold;
+    font-size: 18pt;
+}
+
+.h2-left {
+    text-align: left;
+}
+
+.h2-center {
+    text-align: center;
+}
+
+.h2-right {
+    text-align: right;
+}
+
+.paragraph {
+    margin-bottom: 16px;
+}
+
+.division-container {
+    margin-bottom: 16px;
+    width: 100%;
+    /*text-align: center;*/
+}
+
+.division-unit {
+    display: inline-block;
+    font-size: 11px;
+    vertical-align: top;
+    margin-right: 13px;
+}
+
+.division li {
+    margin-bottom: 16px;
+}
+
+.logo {
+    position: absolute;
+    /*left: 15%;*/
+    top: 60px;
+}
+
+.callUs {
+    position: absolute;
+    right: 70px;
+    top: 60px;
+}
+
+.phone {
+    font-size: 30pt;
+}
+
+.prefix {
+    font-size: 18pt;
+}
+
+.menu a {
+    text-decoration: none;
+    color: gray;
+}
+
+.menu a:visited {
+    color: gray;
+}
+
+.menu {
+    color: gray;
+    font-size: 40pt;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.menu a:hover {
+    color:white;
+    background: gray;
+    display: inline-block;
+}
+
+.footer-copyright {
+    display: inline-block;
+}
+
+.footer-links {
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 20px;
+}
+
+.footer-links a:visited {
+    color: gray;
+}
