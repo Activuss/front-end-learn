@@ -1,91 +1,109 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Artside team</title>
+<head>
+    <meta charset="utf-8"/>
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <title></title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link href="recources/css/style.css" rel="stylesheet">
 </head>
+
 <body>
-    <header>
-        <div>logo</div>
-        <div>phones</div>
+
+<div class="wrapper">
+
+    <header class="header">
+        <div class="logo">
+            <a href="#"><img src="recources/images/logo.png" alt="Artside logo"></a>
+        </div>
+        <div class="callUs">
+            <span class="prefix">+38 (048)</span> <br>
+            <span class="phone">7005472</span>
+        </div>
     </header>
+    <!-- .header-->
 
-    <aside>
-        <nav>
-            <ul>
-                <li>
-                    РАБОТА
-                </li>
-                <li>
-                    СВЯЗЬ
-                </li>
-                <li>
-                    ЛЮДИ
-                </li>
-            </ul>
-        </nav>
-    </aside>
+    <div class="middle">
 
-    <div>
-        <ul>
-            <li>
-                <ul>
-                    <li>
-                        <div>
-                            АДРЕС:
-                        </div>
-                        <div>
-                            адрес
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                            ТЕЛЕФОН:
-                        </div>
-                        <div>
-                            телефон
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                            ПОЧТА:
-                        </div>
-                        <div>
-                            почта
-                        </div>
-                    </li>
-                </ul>
-            </li>
-            <li>
+        <div class="container">
+            <main class="content">
                 <div>
-                    ОБРАТНАЯ СВЯЗЬ
+                    <div class="contact-adress">
+                        <ul>
+                            <li>
+                                <h2 class="h2">Aдрес:</h2>
+                                <div>
+                                    Одесса, ул. Тенистая 15
+                                </div>
+                            </li>
+                            <li>
+                                <h2 class="h2">Телефон:</h2>
+                                <div>
+                                    <a href="callto:+380487005462">+38 (048) 700 54 62</a>
+                                </div>
+                            </li>
+                            <li>
+                                <h2 class="h2">Почта</h2>
+                                <div>
+                                    <a href="mailto:info@artsidegroup.com">info@artsidegroup.com</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="contact-form">
+                        <h2 class="h2">Обратная свзяь</h2>
+                        <form action="#" enctype="text/plain">
+                            <div class="labels">
+                                <label for="name" class="input-item">Ваше имя*</label>
+                                <label for="email" class="input-item">Ваше e-mail*</label>
+                                <label for="question" class="input-item">Ваше вопрос*</label>
+                                <label for="captcha" class="input-item">Не робот?</label>
+                            </div>
+                            <div class="inputs">
+                                <input type="text" id="name" class="input-item">
+                                <input type="email" id="email" class="input-item">
+                                <input type="text" id="question" class="input-item">
+                                <input type="text" id="captcha" class="input-item">
+                                <button>Отправить</button>
+                            </div>
+
+
+                        </form>
+                    </div>
                 </div>
-                <form>
-                    <label>
-                        <input>
-                    </label>
-                    <label>
-                        <input>
-                    </label>
-                    <label>
-                        <input>
-                    </label>
-                    <label>
-                        <input>
-                    </label>
-                </form>
-            </li>
-        </ul>
+
+                <div>
+                    <img src="recources/images/map.jpg" alt="Карта">
+                </div>
+            </main>
+            <!-- .content -->
+        </div>
+        <!-- .container-->
+
+        <aside class="left-sidebar">
+            <nav >
+                <div class="menu"><a href="#">Работа</a></div>
+                <div class="menu"><a href="contacts.html">Связь</a></div>
+                <div class="menu"><a href="team.html">Люди</a></div>
+            </nav>
+        </aside>
+        <!-- .left-sidebar -->
+
+    </div>
+    <!-- .middle-->
+
+</div>
+<!-- .wrapper -->
+
+<footer class="footer">
+
+    <div class="footer-copyright">artsidegroup.com <br>
+        © 2006-2010
     </div>
 
-    <div>
-        map
-    </div>
-
-
-    <footer>
-        <div>copyright</div>
-        <div>vacansies</div>
-    </footer>
+    <span class="footer-links"><a href="#">вакансии</a></span>
+</footer><!-- .footer -->
 </body>
 </html>
