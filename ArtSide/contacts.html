@@ -18,9 +18,11 @@
         <div class="logo">
             <a href="#"><img src="recources/images/logo.png" alt="Artside logo"></a>
         </div>
-        <div class="callUs">
-            <span class="prefix">+38 (048)</span> <br>
-            <span class="phone">7005472</span>
+        <div class="call-us">
+            <a href="callto:+380487005462">
+                <span class="prefix">+38 (048)</span> <br>
+                <span class="phone">7005472</span>
+            </a>
         </div>
     </header>
     <!-- .header-->
@@ -34,18 +36,21 @@
                         <ul>
                             <li>
                                 <h2 class="h2">Aдрес:</h2>
+
                                 <div>
                                     Одесса, ул. Тенистая 15
                                 </div>
                             </li>
                             <li>
                                 <h2 class="h2">Телефон:</h2>
+
                                 <div>
                                     <a href="callto:+380487005462">+38 (048) 700 54 62</a>
                                 </div>
                             </li>
                             <li>
                                 <h2 class="h2">Почта</h2>
+
                                 <div>
                                     <a href="mailto:info@artsidegroup.com">info@artsidegroup.com</a>
                                 </div>
@@ -53,28 +58,35 @@
                         </ul>
                     </div>
                     <div class="contact-form">
-                        <h2 class="h2">Обратная свзяь</h2>
-                        <form action="#" enctype="text/plain">
-                            <div class="labels">
-                                <label for="name" class="input-item">Ваше имя*</label>
-                                <label for="email" class="input-item">Ваше e-mail*</label>
-                                <label for="question" class="input-item">Ваше вопрос*</label>
-                                <label for="captcha" class="input-item">Не робот?</label>
-                            </div>
-                            <div class="inputs">
-                                <input type="text" id="name" class="input-item">
-                                <input type="email" id="email" class="input-item">
-                                <input type="text" id="question" class="input-item">
-                                <input type="text" id="captcha" class="input-item">
-                                <button>Отправить</button>
-                            </div>
+                        <h2 class="h2">Обратная связь</h2>
 
+                        <form action="#" enctype="text/plain">
+                            <div class="input-item">
+                                <label for="name" class="label">Ваше имя*</label>
+                                <input type="text" id="name" class="input" required placeholder="Алексей Дмитриевич">
+                            </div>
+                            <div class="input-item">
+                                <label for="email" class="label">Ваше e-mail*</label>
+                                <input type="email" id="email" class="input" size="25" required placeholder="minimal44ik@mail.ru">
+                            </div>
+                            <div class="input-item">
+                                <label for="question" class="label">Ваше вопрос*</label>
+                                <textarea type="text" id="question" rows="5" class="input" required
+                                          placeholder="Я хочу заказать сайт стоимостью 1 000 000$, я думаю вы справитесь..."></textarea>
+                            </div>
+                            <div class="input-item">
+                                <label for="captcha" class="label">Не робот?*</label>
+                                <img src="recources/images/captcha.png" alt="captcha">
+                                <input type="text" id="captcha" class="input" size="4" required=>
+                            </div>
+                            <button class="button">Отправить</button>
 
                         </form>
                     </div>
                 </div>
 
-                <div>
+                <div class="map">
+                    <span class="map-title">Как проехать?</span>
                     <img src="recources/images/map.jpg" alt="Карта">
                 </div>
             </main>
@@ -83,7 +95,7 @@
         <!-- .container-->
 
         <aside class="left-sidebar">
-            <nav >
+            <nav>
                 <div class="menu"><a href="#">Работа</a></div>
                 <div class="menu"><a href="contacts.html">Связь</a></div>
                 <div class="menu"><a href="team.html">Люди</a></div>
@@ -104,6 +116,7 @@
     </div>
 
     <span class="footer-links"><a href="#">вакансии</a></span>
-</footer><!-- .footer -->
+</footer>
+<!-- .footer -->
 </body>
 </html>
