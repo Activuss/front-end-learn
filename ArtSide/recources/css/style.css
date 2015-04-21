@@ -45,18 +45,18 @@ table {
 /* End of Eric Meyer's CSS Reset */
 
 @font-face {
-    font-family: DINLightAlternate; /* Гарнитура шрифта */
-    src: url(../fonts/DINLightAlternate.ttf); /* Путь к файлу со шрифтом */
+    font-family: DINLightAlternate;
+    src: url(../fonts/DINLightAlternate.ttf);
 }
 
 @font-face {
-    font-family: Tahoma; /* Гарнитура шрифта */
-    src: url(../fonts/Tahoma.ttf); /* Путь к файлу со шрифтом */
+    font-family: Tahoma;
+    src: url(../fonts/Tahoma.ttf);
 }
 
 @font-face {
-    font-family: Verdana; /* Гарнитура шрифта */
-    src: url(../fonts/Verdana.ttf); /* Путь к файлу со шрифтом */
+    font-family: Verdana;
+    src: url(../fonts/Verdana.ttf);
 }
 
 html {
@@ -94,12 +94,6 @@ strong {
 }
 
 @media screen and (max-width: 1000px) {
-    .wrapper {
-        width: 100%;
-    }
-}
-
-@media screen and (max-width: 720px) {
     .wrapper {
         width: 100%;
     }
