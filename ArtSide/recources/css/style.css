@@ -74,6 +74,7 @@ body {
     font-size: 11pt;
 }
 
+
 strong {
     font-weight: bold;
 }
@@ -85,6 +86,22 @@ strong {
 	height: auto !important;
 	height: 100%;
 }
+
+@media screen and (max-width: 1000px) {
+    .wrapper {
+        width: 100%;
+    }
+}
+
+/*@media (min-width: 320px) {
+    .wrapper {
+        width: 320px;
+        margin: 0 auto;
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+    }
+}*/
 
 
 /* Header
@@ -128,6 +145,12 @@ strong {
 	position: relative;
 }
 
+@media screen and (max-width: 1000px) {
+    .left-sidebar {
+        width: 30%;
+    }
+}
+
 
 /* Footer
 -----------------------------------------------------------------------------*/
@@ -140,6 +163,12 @@ strong {
     border-top-style: solid;
     padding-top: 40px;
     color: gray;
+}
+
+@media screen and (max-width: 1000px) {
+    .footer {
+        width: 100%;
+    }
 }
 
 .division {
@@ -185,6 +214,17 @@ strong {
     margin-right: 10px;
 }
 
+
+@media screen and (max-width: 1000px) {
+    .division {
+        display: block;
+    }
+
+    .division h2 {
+        text-align: left;
+    }
+}
+
 .division-unit img {
     width: 76px;
     height: 76px;
@@ -203,6 +243,13 @@ strong {
 .logo img {
     width: 103px;
     height: 63px;
+    padding-left: 5px;
+}
+
+@media screen and (max-width: 1000px) {
+    .logo {
+        padding-left: 20px;
+    }
 }
 
 .call-us {
@@ -237,10 +284,15 @@ strong {
 .menu {
     color: gray;
     font-size: 40pt;
-    font-weight: 300;
     line-height: 1;
     text-transform: uppercase;
     font-family: DINLightAlternate, sans-serif;
+}
+
+@media screen and (max-width: 480px) {
+    .menu {
+        font-size: 60%;
+    }
 }
 
 .menu a:hover {
@@ -251,6 +303,12 @@ strong {
 
 .footer-copyright {
     display: inline-block;
+}
+
+@media screen and (max-width: 1000px) {
+    .menu, .footer-copyright {
+        padding-left: 20px;
+    }
 }
 
 .footer-links {
@@ -268,6 +326,13 @@ strong {
     vertical-align: top;
 }
 
+@media screen and (max-width: 1000px) {
+    .contact-adress {
+        width: 50%;
+        display: block;
+    }
+}
+
 .contact-adress a, a:visited {
     text-decoration: none;
     color: gray;
@@ -281,6 +346,14 @@ strong {
     margin-left: 111px;
     display: inline-block;
     vertical-align: top;
+}
+
+@media screen and (max-width: 1000px) {
+    .contact-form {
+        display: block;
+        width: 50%;
+        margin: 0;
+    }
 }
 
 .input-item {
@@ -309,6 +382,24 @@ strong {
     width: 155px;
 }
 
+@media screen and (max-width: 1000px) {
+
+    .input {
+        margin-top:16px
+    }
+
+    .input-item img {
+        display: block;
+        margin-top:16px
+    }
+
+    #captcha {
+        width: 230px;
+    }
+
+}
+
+
 .input:-moz-placeholder {
     color: white;
 }
@@ -330,6 +421,13 @@ strong {
     margin-top: 16px;
 }
 
+@media screen and (max-width: 1000px) {
+    .button {
+        float: left;
+        margin-bottom: 16px;
+    }
+}
+
 .map {
     border: 4px solid gray;
     margin: 85px 0px 80px;
@@ -349,4 +447,10 @@ strong {
     padding: 0px 4px 0;
     border-bottom: none;
     white-space: nowrap;
+}
+
+@media screen and (max-width: 1000px) {
+    .map {
+       display: none;
+    }
 }
