@@ -6,17 +6,17 @@
         SNAKE_DEFAULT_SIZE :3,
         SPAWN_COORDINATE_X : 1,
         SPAWN_COORDINATE_Y : 1
-    }
+    };
 
     var direction = {
         UP : "up",
         DOWN : "down",
         LEFT : "left",
         RIGHT : "right"
-    }
+    };
 
     function SnakePart(options) {
-        this.options = options || {};
+        //this.options = options || {};
         this.x = options.x;
         this.y = options.y;
         this.direction = options.direction;
@@ -33,10 +33,10 @@
                     y: y,
                     direction: direction
                 }
-            ))
+            ));
             that.length++;
             that.head = this.parts[this.length - 1];
-        }
+        };
 
         var snakeSpawnSize = config.SNAKE_DEFAULT_SIZE;
         var spawnX = config.SPAWN_COORDINATE_X;
@@ -76,12 +76,11 @@
 
     }
 
-    var snake = new Snake()
+    var snake = new Snake();
     //console.log(snake)
     //snake.move({direction: "right"})
     //snake.move({direction: "left"})
     //snake.move({direction: "up"})
-    console.log(snake)
+    console.log(snake);
 
-
-}())
+}());
