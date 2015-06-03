@@ -46,8 +46,10 @@
         }
 
         this.move = function(options) {
+            options = options || {};
             var currentHeadX = that.head.x;
             var currentHeadY = that.head.y;
+
             var shiftToDirection = function (x, y, direction){
                 that.parts.shift();
                 that.length--;
@@ -72,15 +74,77 @@
                     break;
                 }
             }
+        };
+
+        this.isPartOfSnake = function (x, y) {
+            var i = 0;
+            for (i; i < that.length; i++) {
+                var snakePart = that.parts[i];
+                if ((snakePart.x == x) && (snakePart.y == y)) {
+                    return true;
+                }
+            }
+            return false;
         }
+
 
     }
 
-    var snake = new Snake();
-    //console.log(snake)
-    //snake.move({direction: "right"})
-    //snake.move({direction: "left"})
-    //snake.move({direction: "up"})
-    console.log(snake);
+    function Food (options) {
+        options = options || {};
+        this.x = options.x;
+        this.y = options.y;
+    }
 
+    (function GameController() {
+        var snake = new Snake();
+
+        this.generateRandomFoodCoordinates = function() {
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            var x, y;
+            do {
+                x = getRandomInt(0, config.BOARD_HEIGHT);
+                y = getRandomInt(0, config.BOARD_WIDTH);
+            } while (snake.isPartOfSnake(x, y));
+
+            return {x: x, y: y }
+        };
+
+        var food = new Food(this.generateRandomFoodCoordinates());
+
+        this.isSnakeAteFood = function() {
+            var snakeHead = snake.head;
+            return (snakeHead.x == food.x && snakeHead.y == food.y);
+        };
+
+        this.drawGame = function() {
+            var i = 0;
+            var j = 0;
+            var gameGrid = "";
+
+            for(i; i < config.BOARD_WIDTH; i++) {
+                for (j; j < config.BOARD_HEIGHT; j++) {
+                    if (snake.isPartOfSnake (i, j)) {
+                        gameGrid = gameGrid.concat("0");
+                    } else if (food.x == i && food.y == j) {
+                        gameGrid = gameGrid.concat("x");
+                    } else {
+                        gameGrid = gameGrid.concat(" ");
+                    }
+                }
+                gameGrid = gameGrid.concat("\n");
+            }
+            return gameGrid;
+        };
+
+
+
+        //console.log(snake);
+        //console.log(food.x + ", " + food.y);
+        var grid = this.drawGame();
+        console.log(grid);
+
+    }());
 }());
