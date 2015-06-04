@@ -101,7 +101,7 @@
 
         this.generateRandomFoodCoordinates = function() {
             function getRandomInt(min, max) {
-                return Math.floor(Math.random() * (max - min + 1)) + min;
+                return Math.floor(Math.random() * (max - min)) + min;
             }
             var x, y;
             do {
@@ -122,21 +122,22 @@
         this.drawGame = function() {
             var i = 0;
             var j = 0;
-            var gameGrid = "";
+            var grid = "";
 
-            for(i; i < config.BOARD_WIDTH; i++) {
-                for (j; j < config.BOARD_HEIGHT; j++) {
-                    if (snake.isPartOfSnake (i, j)) {
-                        gameGrid = gameGrid.concat("0");
-                    } else if (food.x == i && food.y == j) {
-                        gameGrid = gameGrid.concat("x");
+            for(i; i < config.BOARD_HEIGHT; i++) {
+                j = 0;
+                for (j; j < config.BOARD_WIDTH; j++) {
+                    if (snake.isPartOfSnake (j, i)) {
+                        grid = grid + "0";
+                    } else if ((food.x == j) && (food.y == i)) {
+                        grid = grid + "X";
                     } else {
-                        gameGrid = gameGrid.concat(" ");
+                        grid = grid + " ";
                     }
                 }
-                gameGrid = gameGrid.concat("\n");
+                grid = grid + "\n";
             }
-            return gameGrid;
+            console.log(grid);
         };
 
 
@@ -144,7 +145,6 @@
         //console.log(snake);
         //console.log(food.x + ", " + food.y);
         var grid = this.drawGame();
-        console.log(grid);
 
     }());
 }());
