@@ -1,18 +1,20 @@
 (function snake(){
 
-    var config = {
-        BOARD_HEIGHT : 20,
-        BOARD_WIDTH : 20,
-        SNAKE_DEFAULT_SIZE :3,
-        SPAWN_COORDINATE_X : 1,
-        SPAWN_COORDINATE_Y : 1
-    };
-
     var direction = {
         UP : "up",
         DOWN : "down",
         LEFT : "left",
         RIGHT : "right"
+    };
+
+    var config = {
+        BOARD_HEIGHT : 20,
+        BOARD_WIDTH : 20,
+        SNAKE_DEFAULT_SIZE :3,
+        SPAWN_COORDINATE_X : 1,
+        SPAWN_COORDINATE_Y : 1,
+        DEFAULT_DIRECTION : direction.DOWN,
+        DEFAULT_DELAY : 200
     };
 
     function SnakePart(options) {
@@ -41,8 +43,9 @@
         var snakeSpawnSize = config.SNAKE_DEFAULT_SIZE;
         var spawnX = config.SPAWN_COORDINATE_X;
         var spawnY = config.SPAWN_COORDINATE_Y;
+
         while (snakeSpawnSize-- > 0) {
-            this.appendSnakePart(spawnX, spawnY++, direction.DOWN);
+            this.appendSnakePart(spawnX, spawnY++, config.DEFAULT_DIRECTION);
         }
 
         this.move = function(options) {
@@ -50,27 +53,60 @@
             var currentHeadX = that.head.x;
             var currentHeadY = that.head.y;
 
+            var isBusted = function(x, y) {
+                var result = false;
+                for(var i = 0; i < that.length; i++) {
+                    var snakePart = that.parts[i];
+                    if (snakePart.x == x && snakePart.y == y) {
+                        result = true;
+                        break;
+                    }
+                }
+                return result;
+            };
+
             var shiftToDirection = function (x, y, direction){
-                that.parts.shift();
-                that.length--;
-                that.appendSnakePart(x, y, direction);
+                if (!isBusted(x, y)) {
+                    that.parts.shift();
+                    that.length--;
+                    that.appendSnakePart(x, y, direction);
+                } else {
+                    throw new Error("Snake busted!");
+                }
+
             };
 
             switch (options.direction) {
                 case "up": {
-                    shiftToDirection(currentHeadX, currentHeadY - 1, direction.UP);
+                    if ((currentHeadY - 1) >= 0) {
+                        shiftToDirection(currentHeadX, currentHeadY - 1, direction.UP);
+                    } else {
+                        shiftToDirection(currentHeadX, config.BOARD_HEIGHT - 1, direction.UP);
+                    }
                     break;
                 }
                 case "down": {
-                    shiftToDirection(currentHeadX, currentHeadY - 1, direction.DOWN);
+                    if ((currentHeadY + 1) <= config.BOARD_HEIGHT - 1) {
+                        shiftToDirection(currentHeadX, currentHeadY + 1, direction.DOWN);
+                    } else {
+                        shiftToDirection(currentHeadX, 0, direction.DOWN);
+                    }
                     break;
                 }
                 case "left": {
-                    shiftToDirection(currentHeadX - 1, currentHeadY, direction.LEFT);
+                    if ((currentHeadX - 1) >= 0) {
+                        shiftToDirection(currentHeadX - 1, currentHeadY, direction.LEFT);
+                    } else {
+                        shiftToDirection(config.BOARD_WIDTH - 1, currentHeadY, direction.LEFT);
+                    }
                     break;
                 }
                 case "right": {
-                    shiftToDirection(currentHeadX + 1, currentHeadY, direction.RIGHT);
+                    if ((currentHeadX + 1) <= config.BOARD_WIDTH - 1) {
+                        shiftToDirection(currentHeadX + 1, currentHeadY, direction.RIGHT);
+                    } else {
+                        shiftToDirection(0, currentHeadY, direction.DOWN);
+                    }
                     break;
                 }
             }
@@ -86,8 +122,6 @@
             }
             return false;
         }
-
-
     }
 
     function Food (options) {
@@ -97,9 +131,9 @@
     }
 
     (function GameController() {
-        var snake = new Snake();
+        var snake, food;
 
-        this.generateRandomFoodCoordinates = function() {
+        var generateRandomFoodCoordinates = function() {
             function getRandomInt(min, max) {
                 return Math.floor(Math.random() * (max - min)) + min;
             }
@@ -111,8 +145,6 @@
 
             return {x: x, y: y }
         };
-
-        var food = new Food(this.generateRandomFoodCoordinates());
 
         this.isSnakeAteFood = function() {
             var snakeHead = snake.head;
@@ -140,11 +172,68 @@
             console.log(grid);
         };
 
+        var play = function(gameController) {
+         var currentDirection = config.DEFAULT_DIRECTION;
+
+         setInterval(function() {
+             window.addEventListener('keydown', function(event) {
+                 switch (event.keyCode) {
+                     case 37: // Left
+                         if (currentDirection != direction.RIGHT)
+                            currentDirection = direction.LEFT;
+                         break;
+
+                     case 38: // Up
+                         if (currentDirection != direction.DOWN)
+                            currentDirection = direction.UP;
+                         break;
+
+                     case 39: // Right
+                         if (currentDirection != direction.LEFT)
+                         currentDirection = direction.RIGHT;
+                         break;
+
+                     case 40: // Down
+                         if (currentDirection != direction.UP)
+                            currentDirection = direction.DOWN;
+                         break;
+                 }
+             }, false);
+
+             try {
+                 snake.move({direction: currentDirection});
+             } catch (err) {
+                 alert("You lose.");
+                 startNewGame(gameController);
+             }
+
+             if (gameController.isSnakeAteFood()) {
+                 snake.appendSnakePart(food.x, food.y, currentDirection);
+                 food = new Food(generateRandomFoodCoordinates());
+             }
+             gameController.drawGame();
+         }, config.DEFAULT_DELAY);
+
+
+         };
+
+        var startNewGame = function (gameController){
+            snake = new Snake();
+            food = new Food(generateRandomFoodCoordinates());
+            play(gameController);
+        };
+
+
+        startNewGame(this);
 
 
         //console.log(snake);
         //console.log(food.x + ", " + food.y);
-        var grid = this.drawGame();
+        //snake.move({direction: "right"});
+        //snake.move({direction: "right"});
+        //snake.move({direction: "down"});
+        //
+        //drawGame();
 
     }());
 }());
