@@ -27,6 +27,7 @@
     function Snake () {
         this.parts = [];
         this.length = 0;
+        var snakeBusted = false;
         var that = this;
         this.appendSnakePart = function (x, y, direction) {
             that.parts.push (new SnakePart(
@@ -59,6 +60,7 @@
                     var snakePart = that.parts[i];
                     if (snakePart.x == x && snakePart.y == y) {
                         result = true;
+                        snakeBusted = true;
                         break;
                     }
                 }
@@ -131,7 +133,7 @@
     }
 
     (function GameController() {
-        var snake, food;
+        var snake, food, currentDirection;
 
         var generateRandomFoodCoordinates = function() {
             function getRandomInt(min, max) {
@@ -172,38 +174,39 @@
             console.log(grid);
         };
 
+        window.addEventListener('keydown', function(event) {
+            switch (event.keyCode) {
+                case 37: // Left
+                    if (currentDirection != direction.RIGHT)
+                        currentDirection = direction.LEFT;
+                    break;
+
+                case 38: // Up
+                    if (currentDirection != direction.DOWN)
+                        currentDirection = direction.UP;
+                    break;
+
+                case 39: // Right
+                    if (currentDirection != direction.LEFT)
+                        currentDirection = direction.RIGHT;
+                    break;
+
+                case 40: // Down
+                    if (currentDirection != direction.UP)
+                        currentDirection = direction.DOWN;
+                    break;
+            }
+        }, false);
+
         var play = function(gameController) {
-         var currentDirection = config.DEFAULT_DIRECTION;
 
-         setInterval(function() {
-             window.addEventListener('keydown', function(event) {
-                 switch (event.keyCode) {
-                     case 37: // Left
-                         if (currentDirection != direction.RIGHT)
-                            currentDirection = direction.LEFT;
-                         break;
-
-                     case 38: // Up
-                         if (currentDirection != direction.DOWN)
-                            currentDirection = direction.UP;
-                         break;
-
-                     case 39: // Right
-                         if (currentDirection != direction.LEFT)
-                         currentDirection = direction.RIGHT;
-                         break;
-
-                     case 40: // Down
-                         if (currentDirection != direction.UP)
-                            currentDirection = direction.DOWN;
-                         break;
-                 }
-             }, false);
+            var intervalId = setInterval(function() {
 
              try {
                  snake.move({direction: currentDirection});
              } catch (err) {
                  alert("You lose.");
+                 clearInterval(intervalId);
                  startNewGame(gameController);
              }
 
@@ -219,21 +222,12 @@
 
         var startNewGame = function (gameController){
             snake = new Snake();
+            currentDirection = config.DEFAULT_DIRECTION;
             food = new Food(generateRandomFoodCoordinates());
             play(gameController);
         };
 
 
         startNewGame(this);
-
-
-        //console.log(snake);
-        //console.log(food.x + ", " + food.y);
-        //snake.move({direction: "right"});
-        //snake.move({direction: "right"});
-        //snake.move({direction: "down"});
-        //
-        //drawGame();
-
     }());
 }());
