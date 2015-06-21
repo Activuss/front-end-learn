@@ -7,15 +7,19 @@ var game = game || {};
         RIGHT: "right"
     };
 
-    var config = {
+    game.config = {
         BOARD_HEIGHT: 20,
         BOARD_WIDTH: 20,
+        BOARD_HEIGHT_IN_PIXEL: 400,
+        BOARD_WIDTH_IN_PIXEL: 400,
         SNAKE_DEFAULT_SIZE: 3,
         SPAWN_COORDINATE_X: 1,
         SPAWN_COORDINATE_Y: 1,
         DEFAULT_DIRECTION: direction.DOWN,
-        DEFAULT_DELAY: 200,
-        CELL_SIZE: 20
+        DEFAULT_DELAY: 100,
+        CELL_SIZE: 20,
+        SNAKE_COLOR: '#0f0',
+        FOOD_COLOR: '#fff'
     };
 
     function SnakePart(options) {
@@ -42,12 +46,12 @@ var game = game || {};
             that.head = this.parts[this.length - 1];
         };
 
-        var snakeSpawnSize = config.SNAKE_DEFAULT_SIZE;
-        var spawnX = config.SPAWN_COORDINATE_X;
-        var spawnY = config.SPAWN_COORDINATE_Y;
+        var snakeSpawnSize = game.config.SNAKE_DEFAULT_SIZE;
+        var spawnX = game.config.SPAWN_COORDINATE_X;
+        var spawnY = game.config.SPAWN_COORDINATE_Y;
 
         while (snakeSpawnSize-- > 0) {
-            this.appendSnakePart(spawnX, spawnY++, config.DEFAULT_DIRECTION);
+            this.appendSnakePart(spawnX, spawnY++, game.config.DEFAULT_DIRECTION);
         }
 
         this.move = function (options) {
@@ -85,13 +89,13 @@ var game = game || {};
                     if ((currentHeadY - 1) >= 0) {
                         shiftToDirection(currentHeadX, currentHeadY - 1, direction.UP);
                     } else {
-                        shiftToDirection(currentHeadX, config.BOARD_HEIGHT - 1, direction.UP);
+                        shiftToDirection(currentHeadX, game.config.BOARD_HEIGHT - 1, direction.UP);
                     }
                     break;
                 }
                 case "down":
                 {
-                    if ((currentHeadY + 1) <= config.BOARD_HEIGHT - 1) {
+                    if ((currentHeadY + 1) <= game.config.BOARD_HEIGHT - 1) {
                         shiftToDirection(currentHeadX, currentHeadY + 1, direction.DOWN);
                     } else {
                         shiftToDirection(currentHeadX, 0, direction.DOWN);
@@ -103,13 +107,13 @@ var game = game || {};
                     if ((currentHeadX - 1) >= 0) {
                         shiftToDirection(currentHeadX - 1, currentHeadY, direction.LEFT);
                     } else {
-                        shiftToDirection(config.BOARD_WIDTH - 1, currentHeadY, direction.LEFT);
+                        shiftToDirection(game.config.BOARD_WIDTH - 1, currentHeadY, direction.LEFT);
                     }
                     break;
                 }
                 case "right":
                 {
-                    if ((currentHeadX + 1) <= config.BOARD_WIDTH - 1) {
+                    if ((currentHeadX + 1) <= game.config.BOARD_WIDTH - 1) {
                         shiftToDirection(currentHeadX + 1, currentHeadY, direction.RIGHT);
                     } else {
                         shiftToDirection(0, currentHeadY, direction.DOWN);
@@ -147,8 +151,8 @@ var game = game || {};
 
             var x, y;
             do {
-                x = getRandomInt(0, config.BOARD_HEIGHT);
-                y = getRandomInt(0, config.BOARD_WIDTH);
+                x = getRandomInt(0, game.config.BOARD_HEIGHT);
+                y = getRandomInt(0, game.config.BOARD_WIDTH);
             } while (snake.isPartOfSnake(x, y));
 
             return {x: x, y: y}
@@ -162,46 +166,42 @@ var game = game || {};
         GameController.prototype.drawGame = function () {
             var i = 0;
             var j = 0;
-            var cellSize = config.CELL_SIZE;
 
-            /*paper.setup('myCanvas');
-             var path = new Path.Rectangle([0, 0], [400, 400]);
-             path.fillColor = 'grey';*/
-            game.drawer.drawBackground(400, 400)
+            game.drawer.buildBackground(game.config.BOARD_HEIGHT_IN_PIXEL, game.config.BOARD_WIDTH_IN_PIXEL);
 
-            for (i; i < config.BOARD_HEIGHT; i++) {
+            for (i; i < game.config.BOARD_HEIGHT; i++) {
                 j = 0;
-                for (j; j < config.BOARD_WIDTH; j++) {
+                for (j; j < game.config.BOARD_WIDTH; j++) {
                     if (snake.isPartOfSnake(j, i)) {
-                        //new Path.Rectangle([j * cellSize, i * cellSize],
-                        //    [(j * cellSize) + cellSize, (i * cellSize) + cellSize]).fillColor = 'green';
+                        game.drawer.buildGameElement(j, i, "snakePart");
                     } else if ((food.x == j) && (food.y == i)) {
-
-                    } else {
-
+                        game.drawer.buildGameElement(j, i, "food");
                     }
                 }
             }
 
+            game.drawer.draw();
+            /*var i = 0;
 
-            /*        var i = 0;
-             var j = 0;
-             var grid = "";
+            var j = 0;
+            var grid = "";
 
-             for(i; i < config.BOARD_HEIGHT; i++) {
-             j = 0;
-             for (j; j < config.BOARD_WIDTH; j++) {
-             if (snake.isPartOfSnake (j, i)) {
-             grid = grid + "0";
-             } else if ((food.x == j) && (food.y == i)) {
-             grid = grid + "X";
-             } else {
-             grid = grid + " ";
-             }
-             }
-             grid = grid + "\n";
-             }
-             console.log(grid);*/
+            for(i; i < config.BOARD_HEIGHT; i++) {
+                j = 0;
+                for (j; j < config.BOARD_WIDTH; j++) {
+                    if (snake.isPartOfSnake (j, i)) {
+                        //game.drawer.buildGameElement(j, i);
+                        grid = grid + "0";
+                    } else if ((food.x == j) && (food.y == i)) {
+                        grid = grid + "X";
+                    } else {
+                        grid = grid + " ";
+                    }
+                }
+                grid = grid + "\n";
+            }
+            //game.drawer.draw();
+            console.log(grid);*/
         };
 
         window.addEventListener('keydown', function (event) {
@@ -245,18 +245,15 @@ var game = game || {};
                     food = new Food(game.controller.generateRandomFoodCoordinates());
                 }
                 game.controller.drawGame();
-            }, config.DEFAULT_DELAY);
+            }, game.config.DEFAULT_DELAY);
         };
 
         GameController.prototype.startNewGame = function () {
             snake = new Snake();
-            currentDirection = config.DEFAULT_DIRECTION;
+            currentDirection = game.config.DEFAULT_DIRECTION;
             food = new Food(game.controller.generateRandomFoodCoordinates());
             game.controller.play();
         };
-
-
-        //this.startNewGame(this);
     }
 
 
