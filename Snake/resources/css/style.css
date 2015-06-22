@@ -1,0 +1,14 @@
+#button {
+    width: 100px;
+    height: 50px;
+    border: solid 1px;
+    background: darkorange;
+    position: absolute;
+    left: 150px;
+    top: 175px;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 7px;
+    text-transform: uppercase;
+}
+
