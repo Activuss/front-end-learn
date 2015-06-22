@@ -10,7 +10,7 @@ var game = game || {};
                 isCanvasSetuped = true;
             }
             var background = new paper.Shape.Rectangle(new paper.Point(0, 0), new paper.Point(width, height));
-            background.fillColor = '#808080';
+            background.fillColor = game.config.BACKGROUND_COLOR;
             figures.push(background);
         };
 

@@ -18,6 +18,7 @@ var game = game || {};
         DEFAULT_DIRECTION: direction.DOWN,
         DEFAULT_DELAY: 100,
         CELL_SIZE: 20,
+        BACKGROUND_COLOR: '#808080',
         SNAKE_COLOR: '#0f0',
         FOOD_COLOR: '#fff'
     };
@@ -142,7 +143,7 @@ var game = game || {};
     }
 
     function GameController() {
-        var snake, food, currentDirection;
+        var currentDirection;
 
         GameController.prototype.generateRandomFoodCoordinates = function () {
             function getRandomInt(min, max) {
@@ -153,55 +154,29 @@ var game = game || {};
             do {
                 x = getRandomInt(0, game.config.BOARD_HEIGHT);
                 y = getRandomInt(0, game.config.BOARD_WIDTH);
-            } while (snake.isPartOfSnake(x, y));
+            } while (GameController.prototype.snake.isPartOfSnake(x, y));
 
             return {x: x, y: y}
         };
 
         GameController.prototype.isSnakeAteFood = function () {
-            var snakeHead = snake.head;
-            return (snakeHead.x == food.x && snakeHead.y == food.y);
+            var snakeHead = GameController.prototype.snake.head;
+            return (snakeHead.x == GameController.prototype.food.x && snakeHead.y == GameController.prototype.food.y);
         };
 
         GameController.prototype.drawGame = function () {
-            var i = 0;
-            var j = 0;
+            var currentSnake = game.controller.snake;
+            var snakeParts = currentSnake.parts;
 
             game.drawer.buildBackground(game.config.BOARD_HEIGHT_IN_PIXEL, game.config.BOARD_WIDTH_IN_PIXEL);
 
-            for (i; i < game.config.BOARD_HEIGHT; i++) {
-                j = 0;
-                for (j; j < game.config.BOARD_WIDTH; j++) {
-                    if (snake.isPartOfSnake(j, i)) {
-                        game.drawer.buildGameElement(j, i, "snakePart");
-                    } else if ((food.x == j) && (food.y == i)) {
-                        game.drawer.buildGameElement(j, i, "food");
-                    }
-                }
+            var i = 0;
+            for (i; i < currentSnake.length; i++) {
+                game.drawer.buildGameElement(snakeParts[i].x, snakeParts[i].y, "snakePart");
             }
+            game.drawer.buildGameElement(GameController.prototype.food.x, GameController.prototype.food.y, "food");
 
             game.drawer.draw();
-            /*var i = 0;
-
-            var j = 0;
-            var grid = "";
-
-            for(i; i < config.BOARD_HEIGHT; i++) {
-                j = 0;
-                for (j; j < config.BOARD_WIDTH; j++) {
-                    if (snake.isPartOfSnake (j, i)) {
-                        //game.drawer.buildGameElement(j, i);
-                        grid = grid + "0";
-                    } else if ((food.x == j) && (food.y == i)) {
-                        grid = grid + "X";
-                    } else {
-                        grid = grid + " ";
-                    }
-                }
-                grid = grid + "\n";
-            }
-            //game.drawer.draw();
-            console.log(grid);*/
         };
 
         window.addEventListener('keydown', function (event) {
@@ -233,7 +208,7 @@ var game = game || {};
             var intervalId = setInterval(function () {
 
                 try {
-                    snake.move({direction: currentDirection});
+                    GameController.prototype.snake.move({direction: currentDirection});
                 } catch (err) {
                     alert("You lose.");
                     clearInterval(intervalId);
@@ -241,22 +216,21 @@ var game = game || {};
                 }
 
                 if (game.controller.isSnakeAteFood()) {
-                    snake.appendSnakePart(food.x, food.y, currentDirection);
-                    food = new Food(game.controller.generateRandomFoodCoordinates());
+                    GameController.prototype.snake.appendSnakePart(GameController.prototype.food.x,
+                        GameController.prototype.food.y, currentDirection);
+                    GameController.prototype.food = new Food(game.controller.generateRandomFoodCoordinates());
                 }
                 game.controller.drawGame();
             }, game.config.DEFAULT_DELAY);
         };
 
         GameController.prototype.startNewGame = function () {
-            snake = new Snake();
+            GameController.prototype.snake = new Snake();
             currentDirection = game.config.DEFAULT_DIRECTION;
-            food = new Food(game.controller.generateRandomFoodCoordinates());
+            GameController.prototype.food = new Food(game.controller.generateRandomFoodCoordinates());
             game.controller.play();
         };
     }
-
-
     game.controller = new GameController();
     game.controller.startNewGame()
 })(game);
