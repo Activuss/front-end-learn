@@ -4157,7 +4157,7 @@ var Item = Base.extend(Emitter, {
 	_canComposite: function() {
 		return false;
 	}
-}, Base.each(['down', 'drag', 'up', 'move'], function(name) {
+}, Base.each(['down', 'drag', 'up', 'performSuccessfulMovement'], function(name) {
 	this['removeOn' + Base.capitalize(name)] = function() {
 		var hash = {};
 		hash[name] = true;
