@@ -1,4 +1,5 @@
 #button {
+    display : none;
     width: 100px;
     height: 50px;
     border: solid 1px;
@@ -11,4 +12,11 @@
     border-radius: 7px;
     text-transform: uppercase;
 }
+
+#myCanvas {
+    border: solid 1px darkgray;
+    margin: 0;
+    padding: 0;
+}
+
 

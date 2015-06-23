@@ -20,11 +20,12 @@ var game = game || {};
         CELL_SIZE: 20,
         BACKGROUND_COLOR: '#808080',
         SNAKE_COLOR: '#0f0',
-        FOOD_COLOR: '#fff'
+        FOOD_COLOR: '#fff',
+        START_CODE: 1,
+        RESTART_CODE: 0
     };
 
     function SnakePart(options) {
-        //this.options = options || {};
         this.x = options.x;
         this.y = options.y;
         this.direction = options.direction;
@@ -165,7 +166,6 @@ var game = game || {};
         };
 
         GameController.prototype.drawGame = function () {
-            //var start = new Date().getTime();
             var currentSnake = game.controller.snake;
             var snakeParts = currentSnake.parts;
 
@@ -178,9 +178,6 @@ var game = game || {};
             game.drawer.buildGameElement(GameController.prototype.food.x, GameController.prototype.food.y, "food");
 
             game.drawer.draw();
-            /*var end = new Date().getTime();
-            var time = end - start;
-            console.log(time);*/
         };
 
         window.addEventListener('keydown', function (event) {
@@ -216,7 +213,8 @@ var game = game || {};
                 } catch (err) {
                     alert("You lose.");
                     clearInterval(intervalId);
-                    game.controller.startNewGame();
+                    game.controller.startNewGame()
+                    //game.controller.userInteraction(game.config.RESTART_CODE);
                 }
 
                 if (game.controller.isSnakeAteFood()) {
@@ -225,20 +223,39 @@ var game = game || {};
                     GameController.prototype.food = new Food(game.controller.generateRandomFoodCoordinates());
                 }
                 game.controller.drawGame();
+
             }, game.config.DEFAULT_DELAY);
         };
 
         GameController.prototype.startNewGame = function () {
-            var button = document.getElementById("button");
-            button.addEventListener("click", function() {
-                alert('clicked');
-            });
-           /* GameController.prototype.snake = new Snake();
+            GameController.prototype.snake = new Snake();
             currentDirection = game.config.DEFAULT_DIRECTION;
             GameController.prototype.food = new Food(game.controller.generateRandomFoodCoordinates());
-            game.controller.play();*/
+            game.controller.play();
+        };
+
+        GameController.prototype.userInteraction = function (state) {
+            game.controlButton = document.getElementById("button");
+            game.controlButton.addEventListener("click", function start() {
+                game.controlButton.style.display = 'none';
+                game.controller.startNewGame();
+            });
+
+            switch (state) {
+                case game.config.START_CODE :
+                    game.controlButton.innerHTML = 'start';
+                    game.controlButton.style.display = 'block';
+                    break;
+                case game.config.RESTART_CODE :
+                    game.controlButton.innerHTML = 'restart';
+                    game.controlButton.style.display = 'block';
+                    break;
+            }
         };
     }
+
     game.controller = new GameController();
-    game.controller.startNewGame()
+    window.onload = function () {
+        game.controller.userInteraction(game.config.START_CODE);
+    };
 })(game);

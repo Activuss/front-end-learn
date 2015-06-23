@@ -29,13 +29,10 @@ var game = game || {};
         };
 
         Drawer.prototype.draw = function () {
-            //var start = new Date().getTime()
             var group = new paper.Group(figures);
             group.view.draw();
+            group.remove();
             figures = [];
-            /*var end = new Date().getTime();
-            var drawAllTime = end - start;
-            console.log("drawAllTime + " + drawAllTime);*/
         };
     }
 
