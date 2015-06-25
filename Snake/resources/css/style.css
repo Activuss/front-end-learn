@@ -14,7 +14,8 @@
 }
 
 #myCanvas {
-    border: solid 1px darkgray;
+    border: solid 1px #808080;
+    background: #808080;
     margin: 0;
     padding: 0;
 }
