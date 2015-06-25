@@ -55,7 +55,7 @@ var game = game || {};
                     GameController.prototype.food = new Food(game.controller.generateRandomFoodCoordinates());
                 }
                 game.controller.drawGame();
-
+	        	game.controller.movePerformed = false;
             }, game.config.DEFAULT_DELAY);
         };
 
@@ -90,27 +90,30 @@ var game = game || {};
     game.controller = new GameController();
 
     window.addEventListener('keydown', function (event) {
-        switch (event.keyCode) {
-            case 37: // Left
-                if (GameController.prototype.currentDirection != game.availableDirection.RIGHT)
-                    GameController.prototype.currentDirection = game.availableDirection.LEFT;
-                break;
-
-            case 38: // Up
-                if (GameController.prototype.currentDirection != game.availableDirection.DOWN)
-                    GameController.prototype.currentDirection = game.availableDirection.UP;
-                break;
-
-            case 39: // Right
-                if (GameController.prototype.currentDirection != game.availableDirection.LEFT)
-                    GameController.prototype.currentDirection = game.availableDirection.RIGHT;
-                break;
-
-            case 40: // Down
-                if (GameController.prototype.currentDirection != game.availableDirection.UP)
-                    GameController.prototype.currentDirection = game.availableDirection.DOWN;
-                break;
-        }
+    	if (!game.controller.movePerformed){
+    		switch (event.keyCode) {
+    		    case 37: // Left
+    		        if (GameController.prototype.currentDirection != game.availableDirection.RIGHT)
+    		            GameController.prototype.currentDirection = game.availableDirection.LEFT;
+    		        break;
+    
+    		    case 38: // Up
+    		        if (GameController.prototype.currentDirection != game.availableDirection.DOWN)
+    		            GameController.prototype.currentDirection = game.availableDirection.UP;
+    		        break;
+    
+    		    case 39: // Right
+    		        if (GameController.prototype.currentDirection != game.availableDirection.LEFT)
+    		            GameController.prototype.currentDirection = game.availableDirection.RIGHT;
+    		        break;
+    
+    		    case 40: // Down
+    		        if (GameController.prototype.currentDirection != game.availableDirection.UP)
+    		            GameController.prototype.currentDirection = game.availableDirection.DOWN;
+    		        break;
+    		}
+    		game.controller.movePerformed = true;
+    	}
     }, false);
 
     window.onload = function () {
