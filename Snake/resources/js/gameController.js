@@ -38,7 +38,6 @@ var game = game || {};
                 game.drawer.buildGameElement(snakeParts[i].x, snakeParts[i].y, "snakePart");
             }
             game.drawer.buildGameElement(GameController.prototype.food.x, GameController.prototype.food.y, "food");
-
             game.drawer.draw();
         };
 

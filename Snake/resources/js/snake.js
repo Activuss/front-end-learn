@@ -13,15 +13,18 @@ var game = game || {};
         var isSnakeAlive = true;
 
         Snake.prototype.appendSnakePart = function (x, y, direction) {
-            Snake.prototype.parts.push(new SnakePart(
+
+            var newSnakePart = new SnakePart(
                 {
                     x: x,
                     y: y,
                     direction: direction
                 }
-            ));
+            );
+
+            Snake.prototype.parts.push(newSnakePart);
             Snake.prototype.length++;
-            Snake.prototype.head = Snake.prototype.parts[Snake.prototype.length - 1];
+            Snake.prototype.head = newSnakePart;
         };
 
         Snake.prototype.spawnSnake = function () {
